@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/cbguder/v2e/helpers"
 	"github.com/cbguder/v2e/vesper"
 
 	. "github.com/onsi/ginkgo"
@@ -22,37 +23,9 @@ var _ = Describe("Vesper Importer", func() {
 	})
 
 	It("imports notes", func() {
-		vesperNote1 := `My Special Note Title 1
+		vesperNotesPath := helpers.GetFixturePath("vesper")
 
-My Special Note Body Line 1
-My Special Note Body Line 2
-
-Tags: Work, Life
-
-Created: Apr 20, 2016, 4:20 PM
-Modified: Jan 1, 2017, 8:00 AM
-`
-
-		vesperNote2 := `My Special Note Title 2
-
-My Special Note Body Line 3
-My Special Note Body Line 4
-
-Tags: Harder, Better, Faster, Stronger
-
-Created: May 9, 2015, 5:55 PM
-Modified: Nov 8, 2016, 6:00 AM
-`
-
-		noteFiles := map[string]string{
-			"Note 1.txt": vesperNote1,
-			"Note 2.txt": vesperNote2,
-		}
-
-		tempDir := writeFilesToTempDir(noteFiles)
-		defer os.RemoveAll(tempDir)
-
-		notes, err := importer.Import(tempDir)
+		notes, err := importer.Import(vesperNotesPath)
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(notes).To(HaveLen(2))
@@ -79,15 +52,7 @@ Modified: Nov 8, 2016, 6:00 AM
 	})
 
 	It("imports a note with no space between title and body", func() {
-		vesperNote := `My Special Note Title
-My Special Note Body Line 1
-My Special Note Body Line 2
-
-Tags: Work, Life
-
-Created: Apr 20, 2016, 4:20 PM
-Modified: Jan 1, 2017, 8:00 AM
-`
+		vesperNote := helpers.ReadFixtureString("no_space_note.txt")
 
 		noteFiles := map[string]string{
 			"Note 1.txt": vesperNote,
@@ -122,15 +87,11 @@ Modified: Jan 1, 2017, 8:00 AM
 
 func writeFilesToTempDir(notes map[string]string) string {
 	tempDir, err := ioutil.TempDir("", "vesper")
-	if err != nil {
-		panic(err)
-	}
+	Expect(err).NotTo(HaveOccurred())
 
 	for filename, note := range notes {
 		err = ioutil.WriteFile(filepath.Join(tempDir, filename), []byte(note), 0644)
-		if err != nil {
-			panic(err)
-		}
+		Expect(err).NotTo(HaveOccurred())
 	}
 
 	return tempDir

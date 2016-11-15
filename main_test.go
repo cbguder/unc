@@ -1,7 +1,9 @@
 package main_test
 
 import (
+	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"github.com/cbguder/v2e/helpers"
 
@@ -22,14 +24,19 @@ var _ = Describe("Main", func() {
 	It("produces the expected output", func() {
 		vesperNotesPath := helpers.GetFixturePath("vesper")
 
-		enexFile := helpers.CreateTempFile("enex")
-		defer helpers.DiscardTempFile(enexFile)
+		outputDir, err := ioutil.TempDir("", "evernote")
+		Expect(err).NotTo(HaveOccurred())
+		defer os.RemoveAll(outputDir)
 
-		session := Run("-i", vesperNotesPath, "-o", enexFile.Name())
+		outputFile := filepath.Join(outputDir, "notes.enex")
+
+		session := Run("-i", vesperNotesPath, "-o", outputFile)
 		Eventually(session).Should(Exit(0))
 
-		actualEnex := helpers.ReadFileString(enexFile.Name())
+		actualEnex, err := ioutil.ReadFile(outputFile)
+		Expect(err).NotTo(HaveOccurred())
+
 		expectedEnex := helpers.ReadFixtureString("evernote.enex")
-		Expect(actualEnex).To(Equal(expectedEnex))
+		Expect(string(actualEnex)).To(Equal(expectedEnex))
 	})
 })

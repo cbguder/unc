@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"io/ioutil"
 	"os"
 	"path"
 	"runtime"
@@ -22,7 +23,13 @@ func GetFixturePath(name string) string {
 
 func ReadFixtureBytes(name string) []byte {
 	path := GetFixturePath(name)
-	return ReadFileBytes(path)
+	contents, err := ioutil.ReadFile(path)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return contents
 }
 
 func ReadFixtureString(name string) string {
