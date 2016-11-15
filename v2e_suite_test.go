@@ -5,8 +5,8 @@ import (
 	. "github.com/onsi/gomega"
 	. "github.com/onsi/gomega/gexec"
 
-	"testing"
 	"os/exec"
+	"testing"
 )
 
 func TestV2e(t *testing.T) {
@@ -24,7 +24,7 @@ var _ = SynchronizedBeforeSuite(func() []byte {
 	buildPath = string(data)
 })
 
-var _ = SynchronizedAfterSuite(func() {}, func (){
+var _ = SynchronizedAfterSuite(func() {}, func() {
 	CleanupBuildArtifacts()
 })
 
