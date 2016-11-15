@@ -1,13 +1,13 @@
 package evernote_test
 
 import (
+	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/cbguder/v2e/evernote"
 	"github.com/cbguder/v2e/helpers"
 	"github.com/cbguder/v2e/models"
-
-	"io/ioutil"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -19,7 +19,13 @@ var _ = Describe("Evernote Exporter", func() {
 	)
 
 	BeforeEach(func() {
+		os.Setenv("TZ", "America/Los_Angeles")
+
 		exporter = evernote.NewExporter()
+	})
+
+	AfterEach(func() {
+		os.Unsetenv("TZ")
 	})
 
 	It("exports notes", func() {

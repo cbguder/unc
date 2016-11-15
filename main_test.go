@@ -1,6 +1,8 @@
 package main_test
 
 import (
+	"os"
+
 	"github.com/cbguder/v2e/helpers"
 
 	. "github.com/onsi/ginkgo"
@@ -9,6 +11,14 @@ import (
 )
 
 var _ = Describe("Main", func() {
+	BeforeEach(func() {
+		os.Setenv("TZ", "America/Los_Angeles")
+	})
+
+	AfterEach(func() {
+		os.Unsetenv("TZ")
+	})
+
 	It("produces the expected output", func() {
 		vesperNotesPath := helpers.GetFixturePath("vesper")
 
