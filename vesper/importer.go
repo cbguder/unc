@@ -65,6 +65,11 @@ func splitLine(line string) (string, string) {
 
 func parseTags(line string) []string {
 	_, rawTags := splitLine(line)
+
+	if rawTags == "" {
+		return []string{}
+	}
+
 	tags := strings.Split(rawTags, ",")
 
 	for idx, tag := range tags {

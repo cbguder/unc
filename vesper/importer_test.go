@@ -70,6 +70,24 @@ var _ = Describe("Vesper Importer", func() {
 		Expect(notes[0].Body).To(Equal("My Special Note Body Line 1\nMy Special Note Body Line 2"))
 	})
 
+	It("imports a note with no tags", func() {
+		vesperNote := helpers.ReadFixtureString("no_tags_note.txt")
+
+		noteFiles := map[string]string{
+			"Note 1.txt": vesperNote,
+		}
+
+		tempDir := writeFilesToTempDir(noteFiles)
+		defer os.RemoveAll(tempDir)
+
+		notes, err := importer.Import(tempDir)
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(notes).To(HaveLen(1))
+
+		Expect(notes[0].Tags).To(BeEmpty())
+	})
+
 	It("ignores files not ending in .txt", func() {
 		noteFiles := map[string]string{
 			"Not a Note.com": "",
