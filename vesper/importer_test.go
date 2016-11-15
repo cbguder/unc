@@ -1,7 +1,6 @@
 package vesper_test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -45,7 +44,12 @@ Created: May 9, 2015, 5:55 PM
 Modified: Nov 8, 2016, 6:00 AM
 `
 
-		tempDir := writeNotesToTempDir(vesperNote1, vesperNote2)
+		noteFiles := map[string]string{
+			"Note 1.txt": vesperNote1,
+			"Note 2.txt": vesperNote2,
+		}
+
+		tempDir := writeFilesToTempDir(noteFiles)
 		defer os.RemoveAll(tempDir)
 
 		notes, err := importer.Import(tempDir)
@@ -85,7 +89,11 @@ Created: Apr 20, 2016, 4:20 PM
 Modified: Jan 1, 2017, 8:00 AM
 `
 
-		tempDir := writeNotesToTempDir(vesperNote)
+		noteFiles := map[string]string{
+			"Note 1.txt": vesperNote,
+		}
+
+		tempDir := writeFilesToTempDir(noteFiles)
 		defer os.RemoveAll(tempDir)
 
 		notes, err := importer.Import(tempDir)
@@ -96,16 +104,29 @@ Modified: Jan 1, 2017, 8:00 AM
 		Expect(notes[0].Title).To(Equal("My Special Note Title"))
 		Expect(notes[0].Body).To(Equal("My Special Note Body Line 1\nMy Special Note Body Line 2"))
 	})
+
+	It("ignores files not ending in .txt", func() {
+		noteFiles := map[string]string{
+			"Not a Note.com": "",
+		}
+
+		tempDir := writeFilesToTempDir(noteFiles)
+		defer os.RemoveAll(tempDir)
+
+		notes, err := importer.Import(tempDir)
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(notes).To(BeEmpty())
+	})
 })
 
-func writeNotesToTempDir(notes ...string) string {
+func writeFilesToTempDir(notes map[string]string) string {
 	tempDir, err := ioutil.TempDir("", "vesper")
 	if err != nil {
 		panic(err)
 	}
 
-	for i, note := range notes {
-		filename := fmt.Sprintf("note_%d.txt", i)
+	for filename, note := range notes {
 		err = ioutil.WriteFile(filepath.Join(tempDir, filename), []byte(note), 0644)
 		if err != nil {
 			panic(err)

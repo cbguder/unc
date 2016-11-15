@@ -21,10 +21,14 @@ type Importer struct {
 func (i Importer) Import(inputPath string) ([]models.Note, error) {
 	files, _ := ioutil.ReadDir(inputPath)
 
-	notes := make([]models.Note, len(files))
+	notes := []models.Note{}
 
-	for i, file := range files {
-		notes[i] = convertNote(filepath.Join(inputPath, file.Name()))
+	for _, file := range files {
+		if strings.HasSuffix(file.Name(), ".txt") {
+			path := filepath.Join(inputPath, file.Name())
+			note := convertNote(path)
+			notes = append(notes, note)
+		}
 	}
 
 	return notes, nil
