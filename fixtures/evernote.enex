@@ -6,9 +6,9 @@
     <content><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
 <en-note><div>My Special Note Body Line 1</div><div>My Special Note Body Line 2</div></en-note>]]></content>
-    <tag>Work</tag>
-    <tag>Life</tag>
     <created>20160420T232000Z</created>
     <updated>20170101T160000Z</updated>
+    <tag>Work</tag>
+    <tag>Life</tag>
   </note>
 </en-export>

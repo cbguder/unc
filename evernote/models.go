@@ -10,9 +10,9 @@ type enexExport struct {
 type enexNote struct {
 	Title    string      `xml:"title"`
 	Content  enexContent `xml:"content"`
-	Tags     []string    `xml:"tag"`
 	Created  string      `xml:"created"`
 	Modified string      `xml:"updated"`
+	Tags     []string    `xml:"tag"`
 }
 
 type enexContent struct {
