@@ -3,10 +3,10 @@ package evernote_test
 import (
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/cbguder/v2e/evernote"
-	"github.com/cbguder/v2e/helpers"
 	"github.com/cbguder/v2e/models"
 
 	. "github.com/onsi/ginkgo"
@@ -46,13 +46,16 @@ var _ = Describe("Evernote Exporter", func() {
 			},
 		}
 
-		outputFile := helpers.CreateTempFile("enex")
-		defer helpers.DiscardTempFile(outputFile)
+		outputDir, err := ioutil.TempDir("", "evernote")
+		Expect(err).NotTo(HaveOccurred())
+		defer os.RemoveAll(outputDir)
 
-		err := exporter.Export(outputFile.Name(), notes)
+		outputFile := filepath.Join(outputDir, "notes.enex")
+
+		err = exporter.Export(outputFile, notes)
 		Expect(err).NotTo(HaveOccurred())
 
-		outputBytes, err := ioutil.ReadAll(outputFile)
+		outputBytes, err := ioutil.ReadFile(outputFile)
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(outputBytes).To(ContainSubstring("<title>My Special Title 1</title>"))
