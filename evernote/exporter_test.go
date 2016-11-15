@@ -74,4 +74,28 @@ var _ = Describe("Evernote Exporter", func() {
 		Expect(outputBytes).To(ContainSubstring("<tag>Faster</tag>"))
 		Expect(outputBytes).To(ContainSubstring("<tag>Stronger</tag>"))
 	})
+
+	It("truncates the destination file", func() {
+		notes := []models.Note{}
+
+		outputDir, err := ioutil.TempDir("", "evernote")
+		Expect(err).NotTo(HaveOccurred())
+		defer os.RemoveAll(outputDir)
+
+		data := ""
+		for i := 0; i < 20; i++ {
+			data += "Lorem Ipsum "
+		}
+
+		outputFile := filepath.Join(outputDir, "notes.enex")
+		ioutil.WriteFile(outputFile, []byte(data), 0644)
+
+		err = exporter.Export(outputFile, notes)
+		Expect(err).NotTo(HaveOccurred())
+
+		outputBytes, err := ioutil.ReadFile(outputFile)
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(outputBytes).NotTo(ContainSubstring("Lorem Ipsum"))
+	})
 })

@@ -43,7 +43,7 @@ func (e Exporter) Export(outputPath string, notes []models.Note) error {
 		return err
 	}
 
-	f, _ := os.OpenFile(outputPath, os.O_WRONLY|os.O_CREATE, 0644)
+	f, _ := os.OpenFile(outputPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 
 	f.Write([]byte(xml.Header))
 	f.Write([]byte(exportDoctype))
