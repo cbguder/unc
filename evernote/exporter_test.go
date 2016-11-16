@@ -75,6 +75,58 @@ var _ = Describe("Evernote Exporter", func() {
 		Expect(outputBytes).To(ContainSubstring("<tag>Stronger</tag>"))
 	})
 
+	It("exports notes with empty lines", func() {
+		notes := []models.Note{
+			{
+				Title:    "My Special Title",
+				Body:     "Line 1\n\nLine 2",
+				Tags:     []string{},
+				Created:  time.Now(),
+				Modified: time.Now(),
+			},
+		}
+
+		outputDir, err := ioutil.TempDir("", "evernote")
+		Expect(err).NotTo(HaveOccurred())
+		defer os.RemoveAll(outputDir)
+
+		outputFile := filepath.Join(outputDir, "notes.enex")
+
+		err = exporter.Export(outputFile, notes)
+		Expect(err).NotTo(HaveOccurred())
+
+		outputBytes, err := ioutil.ReadFile(outputFile)
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(string(outputBytes)).To(ContainSubstring(`<en-note><div>Line 1</div><div><br/></div><div>Line 2</div></en-note>`))
+	})
+
+	It("exports notes with special characters", func() {
+		notes := []models.Note{
+			{
+				Title:    "My Special Title",
+				Body:     "& < >",
+				Tags:     []string{},
+				Created:  time.Now(),
+				Modified: time.Now(),
+			},
+		}
+
+		outputDir, err := ioutil.TempDir("", "evernote")
+		Expect(err).NotTo(HaveOccurred())
+		defer os.RemoveAll(outputDir)
+
+		outputFile := filepath.Join(outputDir, "notes.enex")
+
+		err = exporter.Export(outputFile, notes)
+		Expect(err).NotTo(HaveOccurred())
+
+		outputBytes, err := ioutil.ReadFile(outputFile)
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(outputBytes).To(ContainSubstring(`<div>&amp; &lt; &gt;</div>`))
+	})
+
 	It("truncates the destination file", func() {
 		notes := []models.Note{}
 

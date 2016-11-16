@@ -84,7 +84,12 @@ func convertBody(body string) enexInnerNote {
 	for i, line := range lines {
 		nodes[i] = enexNode{
 			XMLName: xml.Name{Local: "div"},
-			Value:   line,
+		}
+
+		if line == "" {
+			nodes[i].InnerXml = "<br/>"
+		} else {
+			nodes[i].CharData = line
 		}
 	}
 

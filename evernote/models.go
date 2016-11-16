@@ -26,6 +26,7 @@ type enexInnerNote struct {
 }
 
 type enexNode struct {
-	XMLName xml.Name
-	Value   string `xml:",chardata"`
+	XMLName  xml.Name
+	CharData string `xml:",chardata"`
+	InnerXml string `xml:",innerxml"`
 }
