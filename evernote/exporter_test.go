@@ -21,7 +21,7 @@ var _ = Describe("Evernote Exporter", func() {
 	BeforeEach(func() {
 		os.Setenv("TZ", "America/Los_Angeles")
 
-		exporter = evernote.NewExporter()
+		exporter = evernote.Exporter{}
 	})
 
 	AfterEach(func() {

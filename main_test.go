@@ -30,7 +30,7 @@ var _ = Describe("Main", func() {
 
 		outputFile := filepath.Join(outputDir, "notes.enex")
 
-		session := Run("-i", vesperNotesPath, "-o", outputFile)
+		session := Run("-f", "vesper", "-t", "evernote", "-i", vesperNotesPath, "-o", outputFile)
 		Eventually(session).Should(Exit(0))
 
 		actualEnex, err := ioutil.ReadFile(outputFile)

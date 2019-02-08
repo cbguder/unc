@@ -19,7 +19,7 @@ var _ = Describe("Vesper Importer", func() {
 	)
 
 	BeforeEach(func() {
-		importer = vesper.NewImporter()
+		importer = vesper.Importer{}
 	})
 
 	It("imports notes", func() {

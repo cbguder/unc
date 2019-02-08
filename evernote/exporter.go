@@ -16,10 +16,6 @@ const (
 	noStandaloneHeader = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>` + "\n"
 )
 
-func NewExporter() Exporter {
-	return Exporter{}
-}
-
 type Exporter struct {
 }
 

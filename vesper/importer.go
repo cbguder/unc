@@ -11,10 +11,6 @@ import (
 
 const timeLayout = "Jan 2, 2006, 3:04 PM"
 
-func NewImporter() Importer {
-	return Importer{}
-}
-
 type Importer struct {
 }
 
