@@ -8,6 +8,7 @@ unc is a command line tool to convert between various note formats. It currently
 * Vesper (Import only)
 
 [![Build Status](https://travis-ci.org/cbguder/unc.svg?branch=master)](https://travis-ci.org/cbguder/unc)
+[![Maintainability](https://api.codeclimate.com/v1/badges/179a50ac83c139b246e5/maintainability)](https://codeclimate.com/github/cbguder/unc/maintainability)
 
 ## Installation
 
