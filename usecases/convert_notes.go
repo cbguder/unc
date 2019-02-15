@@ -6,6 +6,7 @@ import (
 	"github.com/cbguder/v2e/converter"
 	"github.com/cbguder/v2e/evernote"
 	"github.com/cbguder/v2e/markdown"
+	"github.com/cbguder/v2e/paper"
 	"github.com/cbguder/v2e/vesper"
 )
 
@@ -28,7 +29,9 @@ func (c ConvertNotesUseCase) ConvertNotes(fromFormat, toFormat, inputPath, outpu
 }
 
 func getImporter(format string) (converter.Importer, error) {
-	if format == "vesper" {
+	if format == "paper" {
+		return paper.Importer{}, nil
+	} else if format == "vesper" {
 		return vesper.Importer{}, nil
 	}
 
