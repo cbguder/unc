@@ -5,6 +5,7 @@ import (
 
 	"github.com/cbguder/v2e/converter"
 	"github.com/cbguder/v2e/evernote"
+	"github.com/cbguder/v2e/markdown"
 	"github.com/cbguder/v2e/vesper"
 )
 
@@ -37,6 +38,8 @@ func getImporter(format string) (converter.Importer, error) {
 func getExporter(format string) (converter.Exporter, error) {
 	if format == "evernote" {
 		return evernote.Exporter{}, nil
+	} else if format == "markdown" {
+		return markdown.Exporter{}, nil
 	}
 
 	return nil, fmt.Errorf("unrecognized format: %s", format)
