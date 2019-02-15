@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"log"
 
-	"github.com/cbguder/v2e/models"
+	"github.com/cbguder/unc/models"
 )
 
 type Importer struct {

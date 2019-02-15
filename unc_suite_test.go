@@ -9,15 +9,15 @@ import (
 	"testing"
 )
 
-func TestV2e(t *testing.T) {
+func TestUnc(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "v2e Suite")
+	RunSpecs(t, "unc Suite")
 }
 
 var buildPath string
 
 var _ = SynchronizedBeforeSuite(func() []byte {
-	path, err := Build("github.com/cbguder/v2e")
+	path, err := Build("github.com/cbguder/unc")
 	Expect(err).NotTo(HaveOccurred())
 	return []byte(path)
 }, func(data []byte) {

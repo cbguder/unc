@@ -3,11 +3,11 @@ package usecases
 import (
 	"fmt"
 
-	"github.com/cbguder/v2e/converter"
-	"github.com/cbguder/v2e/evernote"
-	"github.com/cbguder/v2e/markdown"
-	"github.com/cbguder/v2e/paper"
-	"github.com/cbguder/v2e/vesper"
+	"github.com/cbguder/unc/converter"
+	"github.com/cbguder/unc/evernote"
+	"github.com/cbguder/unc/markdown"
+	"github.com/cbguder/unc/paper"
+	"github.com/cbguder/unc/vesper"
 )
 
 type ConvertNotesUseCase struct {

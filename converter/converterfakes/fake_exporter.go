@@ -4,8 +4,8 @@ package converterfakes
 import (
 	"sync"
 
-	"github.com/cbguder/v2e/converter"
-	"github.com/cbguder/v2e/models"
+	"github.com/cbguder/unc/converter"
+	"github.com/cbguder/unc/models"
 )
 
 type FakeExporter struct {

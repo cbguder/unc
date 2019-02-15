@@ -1,17 +1,22 @@
-# v2e
+# Universal Note Converter
 
-v2e is a command line tool to import [Vesper](http://vesperapp.co) notes into [Evernote](https://evernote.com)
+unc is a command line tool to convert between various note formats. It currently supports the following, fairly arbitrary list of formats:
 
-[![Build Status](https://travis-ci.org/cbguder/v2e.svg?branch=master)](https://travis-ci.org/cbguder/v2e)
+* [Evernote](https://evernote.com) (Export only)
+* Markdown (Export only)
+* [Paper](https://paper.dropbox.com) (Import only)
+* Vesper (Import only)
+
+[![Build Status](https://travis-ci.org/cbguder/unc.svg?branch=master)](https://travis-ci.org/cbguder/unc)
 
 ## Installation
 
 ```
-go get github.com/cbguder/v2e
+go get github.com/cbguder/unc
 ```
 
 ## Usage
 
 ```
-v2e -i path/to/vesper/export -o path/to/notes.enex
+unc -f <source format> -t <destination format> -i <input path> -o <output path>
 ```

@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/cbguder/v2e/evernote"
-	"github.com/cbguder/v2e/models"
+	"github.com/cbguder/unc/evernote"
+	"github.com/cbguder/unc/models"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

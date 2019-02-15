@@ -3,9 +3,9 @@ package converter_test
 import (
 	"errors"
 
-	"github.com/cbguder/v2e/converter"
-	"github.com/cbguder/v2e/converter/converterfakes"
-	"github.com/cbguder/v2e/models"
+	"github.com/cbguder/unc/converter"
+	"github.com/cbguder/unc/converter/converterfakes"
+	"github.com/cbguder/unc/models"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
