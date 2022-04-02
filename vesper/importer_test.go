@@ -9,7 +9,7 @@ import (
 	"github.com/cbguder/unc/helpers"
 	"github.com/cbguder/unc/vesper"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

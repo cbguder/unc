@@ -7,7 +7,7 @@ import (
 	"github.com/cbguder/unc/converter/converterfakes"
 	"github.com/cbguder/unc/models"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
